@@ -46,6 +46,7 @@ class Presets:
             content_security_policy="default-src 'none'; frame-ancestors 'none'",
             cross_origin_opener_policy="same-origin",
             cross_origin_resource_policy="same-origin",
+            strip_server_headers=True,
         )
 
     @staticmethod
@@ -111,4 +112,5 @@ class Presets:
             cross_origin_opener_policy="same-origin",
             cross_origin_resource_policy="same-origin",
             cross_origin_embedder_policy="require-corp",
+            strip_server_headers=True,
         )

@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "fastapi-security-headers"
-version = "0.1.0"
+version = "0.1.1"
 description = "High-performance, zero-config OWASP security headers middleware for FastAPI and Starlette."
 readme = "README.md"
 requires-python = ">=3.9"
@@ -58,12 +58,15 @@ dev = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/alejandrotg-code/fastapi-security-headers"
-Repository = "https://github.com/alejandrotg-code/fastapi-security-headers"
-"Bug Tracker" = "https://github.com/alejandrotg-code/fastapi-security-headers/issues"
+Homepage = "https://github.com/aletgdev/fastapi-security-headers"
+Repository = "https://github.com/aletgdev/fastapi-security-headers"
+"Bug Tracker" = "https://github.com/aletgdev/fastapi-security-headers/issues"
 
 [tool.setuptools.packages.find]
 where = ["src"]
+
+[tool.setuptools.package-data]
+fastapi_security_headers = ["py.typed"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

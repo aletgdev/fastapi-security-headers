@@ -51,7 +51,7 @@ def test_swagger_friendly_preset_headers(create_app):
 
 def test_strict_preset_headers(create_app):
     app = create_app(config=Presets.strict())
-    client = TestClient(app)
+    client = TestClient(app, base_url="https://testserver")
 
     response = client.get("/")
     assert response.status_code == 200

@@ -17,11 +17,14 @@ class HSTSConfig:
         max_age: Time in seconds that the browser should remember this policy (default: 1 year).
         include_subdomains: If True, applies this rule to all subdomains.
         preload: If True, indicates consent to be included in browser preload lists.
+        require_https: If True (default, RFC 6797 §7.2 compliant), only sends HSTS on HTTPS
+            or forwarded HTTPS connections, preventing browser lockouts on localhost/HTTP.
     """
 
     max_age: int = 31536000  # 1 year in seconds
     include_subdomains: bool = True
     preload: bool = False
+    require_https: bool = True
 
     def to_header_value(self) -> str:
         """Converts configuration into a valid HSTS header string."""
@@ -47,9 +50,11 @@ class SecurityHeadersConfig:
         referrer_policy: Controls the Referer header on outgoing links.
         permissions_policy: Disables browser features not needed by an API (e.g. camera).
         content_security_policy: Content Security Policy (CSP) directive string or None.
+        content_security_policy_report_only: CSP Report-Only directive string or None.
         cross_origin_opener_policy: Isolates browsing context (default: "same-origin").
         cross_origin_resource_policy: Prevents cross-origin reads (default: "same-origin").
         cross_origin_embedder_policy: Controls cross-origin resources (default: None).
+        strip_server_headers: If True, removes 'Server' and 'X-Powered-By' headers to mitigate fingerprinting.
         custom_headers: Dictionary of additional custom security headers to inject.
     """
 
@@ -60,9 +65,11 @@ class SecurityHeadersConfig:
     referrer_policy: Optional[str] = "strict-origin-when-cross-origin"
     permissions_policy: Optional[str] = "geolocation=(), microphone=(), camera=()"
     content_security_policy: Optional[str] = None
+    content_security_policy_report_only: Optional[str] = None
     cross_origin_opener_policy: Optional[str] = "same-origin"
     cross_origin_resource_policy: Optional[str] = "same-origin"
     cross_origin_embedder_policy: Optional[str] = None
+    strip_server_headers: bool = False
     custom_headers: Optional[Dict[str, str]] = None
 
     def compile_headers(self) -> List[Tuple[bytes, bytes]]:
@@ -102,6 +109,12 @@ class SecurityHeadersConfig:
         # 7. Content-Security-Policy (CSP)
         if self.content_security_policy:
             raw_headers.append((b"content-security-policy", self.content_security_policy.encode("latin-1")))
+
+        # 7b. Content-Security-Policy-Report-Only
+        if self.content_security_policy_report_only:
+            raw_headers.append(
+                (b"content-security-policy-report-only", self.content_security_policy_report_only.encode("latin-1"))
+            )
 
         # 8. Cross-Origin-Opener-Policy (COOP)
         if self.cross_origin_opener_policy:
