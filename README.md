@@ -6,6 +6,8 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 [![Dependencies](https://img.shields.io/badge/dependencies-0-brightgreen.svg)](https://github.com/aletgdev/fastapi-security-headers)
 [![Ko-fi](https://img.shields.io/badge/Ko--fi-Support-FF5E5B?logo=kofi&logoColor=white)](https://ko-fi.com/alejandrotg)
+<!-- Descargas mensuales -->
+[![Downloads](https://img.shields.io/pypi/dm/fastapi-security-headers.svg?color=green)](https://pypistats.org/packages/fastapi-security-headers)
 
 **The missing security headers middleware for FastAPI.** Protect your API against XSS, clickjacking, MIME sniffing, and OWASP Top 10 web vulnerabilities with secure-by-default configurations and zero overhead.
 
