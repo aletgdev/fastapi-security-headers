@@ -45,8 +45,17 @@ def test_swagger_friendly_preset_headers(create_app):
     response = client.get("/")
     assert response.status_code == 200
     csp = response.headers["content-security-policy"]
-    assert "https://cdn.jsdelivr.net" in csp
-    assert "https://fastapi.tiangolo.com" in csp
+    directives = {}
+    for part in csp.split(";"):
+        directive = part.strip()
+        if not directive:
+            continue
+        tokens = directive.split()
+        directives[tokens[0]] = tokens[1:]
+
+    default_src = directives.get("default-src", [])
+    assert "https://cdn.jsdelivr.net" in default_src
+    assert "https://fastapi.tiangolo.com" in default_src
 
 
 def test_strict_preset_headers(create_app):
