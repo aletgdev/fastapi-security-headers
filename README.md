@@ -162,7 +162,9 @@ pytest -v
 
 ## 🤝 Contributing
 
-Contributions, issues, and feature requests are welcome! Feel free to check the [issues page](https://github.com/aletgdev/fastapi-security-headers/issues).
+Contributions, issues, and feature requests are welcome! See [CONTRIBUTING.md](CONTRIBUTING.md) for setup, testing, and pull request guidelines.
+
+New here? Look for issues labeled [`good first issue`](https://github.com/aletgdev/fastapi-security-headers/labels/good%20first%20issue) or [`help wanted`](https://github.com/aletgdev/fastapi-security-headers/labels/help%20wanted), and feel free to check the [issues page](https://github.com/aletgdev/fastapi-security-headers/issues).
 
 ---
 

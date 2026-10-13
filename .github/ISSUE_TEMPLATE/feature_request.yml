@@ -1,0 +1,40 @@
+name: Feature Request
+description: Suggest a new feature or improvement for fastapi-security-headers
+title: "[Feature] "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for helping improve fastapi-security-headers. Describe the problem
+        you are facing and the solution you have in mind.
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem being solved
+      description: What problem or limitation are you running into?
+      placeholder: I want to ... but currently ...
+    validations:
+      required: true
+  - type: textarea
+    id: proposed-solution
+    attributes:
+      label: Proposed solution
+      description: What would you like the package to do?
+      placeholder: The package could ...
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+      description: Any alternative solutions or workarounds you have tried.
+    validations:
+      required: false
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: Additional context
+      description: Anything else that would help, such as links, references, or examples.
+    validations:
+      required: false

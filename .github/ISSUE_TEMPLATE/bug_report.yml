@@ -1,0 +1,59 @@
+name: Bug Report
+description: Report a bug in fastapi-security-headers
+title: "[Bug] "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to file a bug report. Please provide as much
+        detail as you can so the issue can be reproduced quickly.
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: A clear and concise description of the bug.
+      placeholder: What went wrong?
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: The exact steps needed to reproduce the behavior.
+      placeholder: |
+        1. Configure the middleware with ...
+        2. Send a request to ...
+        3. Observe ...
+    validations:
+      required: true
+  - type: textarea
+    id: expected-vs-actual
+    attributes:
+      label: Expected vs actual behaviour
+      description: What you expected to happen, and what actually happened.
+      placeholder: |
+        Expected: ...
+        Actual: ...
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: Your operating system, Python version, FastAPI version, and package version.
+      placeholder: |
+        OS: ...
+        Python: ...
+        FastAPI: ...
+        fastapi-security-headers: ...
+    validations:
+      required: false
+  - type: input
+    id: package-version
+    attributes:
+      label: Version of fastapi-security-headers
+      description: The exact version you are using (for example, 0.1.1).
+      placeholder: 0.1.1
+    validations:
+      required: true
