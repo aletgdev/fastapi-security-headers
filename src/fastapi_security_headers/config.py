@@ -15,14 +15,14 @@ class HSTSConfig:
 
     Attributes:
         max_age: Time in seconds that the browser should remember this policy (default: 1 year).
-        include_subdomains: If True, applies this rule to all subdomains.
+        include_subdomains: If True, applies this rule to all subdomains (default: False, opt-in to avoid production footguns).
         preload: If True, indicates consent to be included in browser preload lists.
         require_https: If True (default, RFC 6797 §7.2 compliant), only sends HSTS on HTTPS
             or forwarded HTTPS connections, preventing browser lockouts on localhost/HTTP.
     """
 
     max_age: int = 31536000  # 1 year in seconds
-    include_subdomains: bool = True
+    include_subdomains: bool = False
     preload: bool = False
     require_https: bool = True
 

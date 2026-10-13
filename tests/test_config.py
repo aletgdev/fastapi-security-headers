@@ -6,10 +6,10 @@ from fastapi_security_headers.config import HSTSConfig, SecurityHeadersConfig
 def test_hsts_config_defaults():
     hsts = HSTSConfig()
     assert hsts.max_age == 31536000
-    assert hsts.include_subdomains is True
+    assert hsts.include_subdomains is False
     assert hsts.preload is False
     assert hsts.require_https is True
-    assert hsts.to_header_value() == "max-age=31536000; includeSubDomains"
+    assert hsts.to_header_value() == "max-age=31536000"
 
 
 def test_hsts_config_with_preload():
@@ -29,7 +29,7 @@ def test_security_headers_config_defaults():
     assert compiled[b"x-content-type-options"] == b"nosniff"
     assert compiled[b"x-frame-options"] == b"DENY"
     assert compiled[b"x-xss-protection"] == b"0"
-    assert compiled[b"strict-transport-security"] == b"max-age=31536000; includeSubDomains"
+    assert compiled[b"strict-transport-security"] == b"max-age=31536000"
     assert compiled[b"referrer-policy"] == b"strict-origin-when-cross-origin"
     assert compiled[b"permissions-policy"] == b"geolocation=(), microphone=(), camera=()"
     assert compiled[b"cross-origin-opener-policy"] == b"same-origin"
