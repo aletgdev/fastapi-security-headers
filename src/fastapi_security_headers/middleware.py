@@ -19,16 +19,17 @@ def _is_secure_request(scope: Scope) -> bool:
     """Checks whether the incoming request is HTTPS or forwarded HTTPS.
 
     Supports direct HTTPS scheme as well as standard reverse proxy headers
-    (X-Forwarded-Proto: https, X-Forwarded-Ssl: on).
+    (X-Forwarded-Proto: https, X-Forwarded-Ssl: on). Chained proxy values
+    such as "https, http" are handled by checking the first token.
     """
     if scope.get("scheme") == "https":
         return True
     headers = scope.get("headers", [])
     for key, value in headers:
         key_lower = key.lower()
-        if key_lower == b"x-forwarded-proto" and value.lower() == b"https":
+        if key_lower == b"x-forwarded-proto" and value.split(b",")[0].strip().lower() == b"https":
             return True
-        if key_lower == b"x-forwarded-ssl" and value.lower() == b"on":
+        if key_lower == b"x-forwarded-ssl" and value.split(b",")[0].strip().lower() == b"on":
             return True
     return False
 

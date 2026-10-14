@@ -131,3 +131,34 @@ def test_websocket_bypass():
         ws.send_text("hello-asgi")
         data = ws.receive_text()
         assert data == "echo:hello-asgi"
+
+
+def test_hsts_emitted_for_chained_forwarded_proto(create_app):
+    """HSTS is emitted when X-Forwarded-Proto is a chained value starting with https."""
+    app = create_app()
+    client = TestClient(app, base_url="http://testserver")
+
+    response = client.get("/", headers={"X-Forwarded-Proto": "https, http"})
+    assert response.status_code == 200
+    assert "strict-transport-security" in response.headers
+    assert response.headers["strict-transport-security"] == "max-age=31536000; includeSubDomains"
+
+
+def test_hsts_emitted_for_single_forwarded_proto(create_app):
+    """HSTS is still emitted for a simple X-Forwarded-Proto: https (no regression)."""
+    app = create_app()
+    client = TestClient(app, base_url="http://testserver")
+
+    response = client.get("/", headers={"X-Forwarded-Proto": "https"})
+    assert response.status_code == 200
+    assert "strict-transport-security" in response.headers
+
+
+def test_hsts_omitted_for_plain_http_without_forwarded_header(create_app):
+    """HSTS is omitted for a plain HTTP request with no forwarded header."""
+    app = create_app()
+    client = TestClient(app, base_url="http://testserver")
+
+    response = client.get("/")
+    assert response.status_code == 200
+    assert "strict-transport-security" not in response.headers
