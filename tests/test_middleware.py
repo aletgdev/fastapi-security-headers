@@ -131,3 +131,37 @@ def test_websocket_bypass():
         ws.send_text("hello-asgi")
         data = ws.receive_text()
         assert data == "echo:hello-asgi"
+
+
+def test_strip_server_headers_enabled(create_app):
+    """When strip_server_headers=True, Server and X-Powered-By should be stripped."""
+    app = create_app(strip_server_headers=True)
+    client = TestClient(app)
+
+    response = client.get("/server-header")
+    assert response.status_code == 200
+    assert "server" not in response.headers
+    assert "x-powered-by" not in response.headers
+
+
+def test_strip_server_headers_disabled_by_default(create_app):
+    """When strip_server_headers is False (default), Server and X-Powered-By should be preserved."""
+    app = create_app()
+    client = TestClient(app)
+
+    response = client.get("/server-header")
+    assert response.status_code == 200
+    assert response.headers.get("server") == "uvicorn"
+    assert response.headers.get("x-powered-by") == "FastAPI"
+
+
+def test_strip_server_headers_via_config(create_app):
+    """When strip_server_headers=True is set via SecurityHeadersConfig."""
+    config = SecurityHeadersConfig(strip_server_headers=True)
+    app = create_app(config=config)
+    client = TestClient(app)
+
+    response = client.get("/server-header")
+    assert response.status_code == 200
+    assert "server" not in response.headers
+    assert "x-powered-by" not in response.headers
