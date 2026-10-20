@@ -185,3 +185,21 @@ If this project helps you secure your FastAPI applications, consider buying a co
 ## 📄 License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+
+## ℹ️ Important Note on Uvicorn Server Header
+
+When running behind **Uvicorn**, pure ASGI middleware runs *after* Uvicorn appends its server-level default headers (such as Server: uvicorn). Therefore, strip_server_headers=True will filter out headers from the app layer, but Uvicorn's own wire-level Server header will still be sent unless disabled directly in Uvicorn:
+
+`python
+# Run uvicorn programmatically with server_header=False
+import uvicorn
+
+uvicorn.run(app, host='127.0.0.1', port=8000, server_header=False)
+`
+
+Or via the CLI command:
+`ash
+# Or pass --no-server-header flag in CLI
+uvicorn app:app --no-server-header
+`
