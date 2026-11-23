@@ -22,7 +22,7 @@ class HSTSConfig:
     """
 
     max_age: int = 31536000  # 1 year in seconds
-    include_subdomains: bool = True
+    include_subdomains: bool = False
     preload: bool = False
     require_https: bool = True
 

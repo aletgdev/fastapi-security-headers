@@ -20,7 +20,7 @@ def test_default_headers_injected(client):
     assert headers["x-content-type-options"] == "nosniff"
     assert headers["x-frame-options"] == "DENY"
     assert headers["x-xss-protection"] == "0"
-    assert headers["strict-transport-security"] == "max-age=31536000; includeSubDomains"
+    assert headers["strict-transport-security"] == "max-age=31536000"
     assert headers["referrer-policy"] == "strict-origin-when-cross-origin"
     assert headers["permissions-policy"] == "geolocation=(), microphone=(), camera=()"
     assert headers["cross-origin-opener-policy"] == "same-origin"

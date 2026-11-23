@@ -62,11 +62,13 @@ By default, `fastapi-security-headers` turns an **F** score on security scanners
 | **`X-Content-Type-Options`** | `nosniff` | **MIME-Sniffing:** Prevents browsers from guessing content types, blocking malicious scripts disguised as images or JSON. |
 | **`X-Frame-Options`** | `DENY` | **Clickjacking:** Prevents external sites from embedding your API inside hidden `<iframe>` overlays. |
 | **`X-XSS-Protection`** | `0` | **Audit Vulnerabilities:** Disables legacy buggy XSS filters as recommended by OWASP. |
-| **`Strict-Transport-Security`** | `max-age=31536000; includeSubDomains` | **SSL Stripping / MitM:** Enforces HTTPS for all future visits over the next 365 days. |
+| **`Strict-Transport-Security`** | `max-age=31536000` | **SSL Stripping / MitM:** Enforces HTTPS for the current domain for the next 365 days. |
 | **`Referrer-Policy`** | `strict-origin-when-cross-origin` | **Data Leakage:** Prevents leaking sensitive URL query parameters to third-party domains. |
 | **`Permissions-Policy`** | `geolocation=(), microphone=(), camera=()` | **Feature Abuse:** Disables unused device APIs (GPS, camera, microphone). |
 | **`Cross-Origin-Opener-Policy`** | `same-origin` | **Side-Channel Attacks:** Isolates browsing context against Spectre-style attacks. |
 | **`Cross-Origin-Resource-Policy`**| `same-origin` | **Cross-Origin Reads:** Blocks external origins from reading your API responses. |
+
+**HSTS subdomains:** `includeSubDomains` is opt-in and disabled by default. Set `include_subdomains=True` only when all subdomains support HTTPS. Built-in presets retain their explicitly configured HSTS settings.
 
 ---
 
